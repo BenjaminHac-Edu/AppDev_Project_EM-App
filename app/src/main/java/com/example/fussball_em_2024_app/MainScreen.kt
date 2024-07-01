@@ -39,6 +39,7 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.fussball_em_2024_app.model.Match
 import com.example.fussball_em_2024_app.model.Team
+import com.example.fussball_em_2024_app.ui.Main.FavouriteTeams
 import com.example.fussball_em_2024_app.viewModels.MatchViewModel
 import com.example.fussball_em_2024_app.viewModels.TeamViewModel
 import java.text.SimpleDateFormat
@@ -77,12 +78,15 @@ fun MatchScreen(navController: NavController, modifier: Modifier = Modifier) {
                         Spacer(modifier = Modifier.height(16.dp))
                     }
 
-
                     lastViewState.match?.let { match ->
                         LastMatchScreen(match = match)
                         Spacer(modifier = Modifier.height(16.dp))
                     }
 
+                    // Favourite Teams Section
+                    FavouriteTeams("em24", viewState.list, { selectedTeam ->
+                        navController.navigate("${TeamDetail.route}/${selectedTeam.teamId}")
+                    })
 
                     // Zeige dann die Liste der CategoryScreen Matches
                     if (viewState.list.isNotEmpty()) {
