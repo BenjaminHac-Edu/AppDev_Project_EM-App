@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.fussball_em_2024_app.ui.MatchDetail.MatchDetailScreen
 import com.example.fussball_em_2024_app.ui.TeamDetail.TeamDetailScreen
 import com.example.testjetpackcompose.ui.theme.TestJetpackComposeTheme
 
@@ -35,7 +36,14 @@ fun FussballEMApp(){
                 route = TeamDetail.routeWithArgs,
                 arguments = TeamDetail.arguments){ backStackEntry ->
                 val teamId = backStackEntry.arguments?.getInt(TeamDetail.teamIdArg) ?: 0
-                TeamDetailScreen(teamId = teamId, navController/*6169*/)
+                TeamDetailScreen(teamId = teamId, navController)
+            }
+
+            composable(
+                route = MatchDetail.routeWithArgs,
+                arguments = MatchDetail.arguments){ backStackEntry ->
+                val matchId = backStackEntry.arguments?.getInt(MatchDetail.matchIdArg) ?: 0
+                MatchDetailScreen(matchId = matchId, navController)
             }
         }
     }

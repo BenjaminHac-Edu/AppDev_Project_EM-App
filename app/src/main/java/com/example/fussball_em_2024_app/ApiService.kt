@@ -37,6 +37,9 @@ interface ApiService {
     @GET("getmatchdata/em/2024/")
     suspend fun getLatestMatch(): List<Match>
 
+    @GET("getmatchdata/{id}")
+    suspend fun getMatch(@Path("id") id: Int):Match?
+
     @GET("getnextmatchbyleagueshortcut/EM")
     suspend fun getNextMatch():Match
 

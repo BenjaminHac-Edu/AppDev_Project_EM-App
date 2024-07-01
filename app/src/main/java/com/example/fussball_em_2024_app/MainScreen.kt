@@ -39,6 +39,7 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.fussball_em_2024_app.model.Match
 import com.example.fussball_em_2024_app.model.Team
+import com.example.fussball_em_2024_app.utils.DateFormater.formatDate
 import com.example.fussball_em_2024_app.viewModels.MatchViewModel
 import com.example.fussball_em_2024_app.viewModels.TeamViewModel
 import java.text.SimpleDateFormat
@@ -73,13 +74,13 @@ fun MatchScreen(navController: NavController, modifier: Modifier = Modifier) {
                 {
                     // Zeige zuerst den nächsten Match an
                     nextViewState.match?.let { match ->
-                        NextMatchScreen(match = match)
+                        NextMatchScreen(match = match, navController = navController)
                         Spacer(modifier = Modifier.height(16.dp))
                     }
 
 
                     lastViewState.match?.let { match ->
-                        LastMatchScreen(match = match)
+                        LastMatchScreen(match = match, navController = navController)
                         Spacer(modifier = Modifier.height(16.dp))
                     }
 
@@ -119,12 +120,15 @@ fun TeamScreen(teams: List<Team>, navController: NavController) {
 }
 
 @Composable
-fun NextMatchScreen(match: Match) {
+fun NextMatchScreen(match: Match, navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
             .background(color = Color.White, shape = RoundedCornerShape(4.dp)) // Abgerundete Ecke und weißer Hintergrund
+            .clickable {
+                navController.navigate("${MatchDetail.route}/${match.matchID}")
+            }
     ){
     Column(modifier = Modifier.padding(16.dp)) {
         Text(
@@ -138,7 +142,7 @@ fun NextMatchScreen(match: Match) {
 }
 
 @Composable
-fun LastMatchScreen(match: Match) {
+fun LastMatchScreen(match: Match, navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -147,6 +151,9 @@ fun LastMatchScreen(match: Match) {
                 color = Color.White,
                 shape = RoundedCornerShape(4.dp)
             )
+            .clickable {
+                navController.navigate("${MatchDetail.route}/${match.matchID}")
+            }
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
@@ -210,16 +217,6 @@ fun MatchItems(match: Match) {
     }
 }
 
-
-// Funktion zum Konvertieren des Datums in String
-@Composable
-fun formatDate(date: Date?): String {
-    return if(date != null) {
-        SimpleDateFormat("dd.MM.yy \n'um' HH:mm 'Uhr'", Locale.GERMANY).format(date)
-    } else {
-        "Datum unbekannt"
-    }
-}
 
 @Composable
 fun TeamItem(team:Team, onTeamClick: (Team) -> Unit){

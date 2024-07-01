@@ -127,12 +127,12 @@ fun TeamDetailScreen(teamId: Int, navController: NavController, modifier: Modifi
                     Spacer(modifier = Modifier.height(24.dp))
 
                     nextMatch.match?.let { match ->
-                        NextMatchScreen(match = match)
+                        NextMatchScreen(match = match, navController)
                         Spacer(modifier = Modifier.height(16.dp))
                     }
 
                     lastMatch.match?.let { match ->
-                        LastMatchScreen(match = match)
+                        LastMatchScreen(match = match, navController)
                         Spacer(modifier = Modifier.height(16.dp))
                     }
 

@@ -17,3 +17,10 @@ object TeamDetail : FussballDestination {
     val routeWithArgs = "${route}/{${teamIdArg}}"
     val arguments = listOf(navArgument(teamIdArg) { type = NavType.IntType })
 }
+
+object MatchDetail : FussballDestination {
+    override val route = "match_detail"
+    const val matchIdArg = "match_id"
+    val routeWithArgs = "${route}/{${matchIdArg}}"
+    val arguments = listOf(navArgument(matchIdArg) { type = NavType.IntType })
+}
